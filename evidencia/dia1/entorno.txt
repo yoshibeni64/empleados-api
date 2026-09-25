@@ -1,0 +1,6 @@
+Ubuntu 24.04.5 LTS
+6.18.33.2-microsoft-standard-WSL2
+Docker version 29.8.1, build 4a63305
+Docker Compose version v5.5.1
+openjdk version "17.0.20.1" 2026-08-18
+git version 2.43.0

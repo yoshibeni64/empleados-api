@@ -1,0 +1,23 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: empleados-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: empleados_db
+      MYSQL_USER: academia
+      MYSQL_PASSWORD: academia123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      # Por TCP (127.0.0.1) y con el usuario de la app: durante la inicialización la imagen levanta
+      # un MySQL temporal SIN red, así que «healthy» solo llega cuando el usuario academia ya existe.
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--protocol=tcp", "-uacademia", "-pacademia123"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  mysql-data:

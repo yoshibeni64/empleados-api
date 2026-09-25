@@ -1,0 +1,10 @@
+Field	Type	Null	Key	Default	Extra
+id	bigint	NO	PRI	NULL	auto_increment
+activo	bit(1)	NO		NULL	
+apellidos	varchar(80)	NO		NULL	
+departamento	varchar(60)	NO		NULL	
+email	varchar(120)	NO	UNI	NULL	
+fecha_ingreso	date	NO		NULL	
+nombre	varchar(60)	NO		NULL	
+puesto	varchar(60)	NO		NULL	
+salario	decimal(10,2)	NO		NULL	
