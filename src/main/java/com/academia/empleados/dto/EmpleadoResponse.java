@@ -1,0 +1,25 @@
+package com.academia.empleados.dto;
+
+import com.academia.empleados.entity.Empleado;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+public record EmpleadoResponse(
+        Long id,
+        String nombre,
+        String apellidos,
+        String email,
+        String puesto,
+        String departamento,
+        BigDecimal salario,
+        LocalDate fechaIngreso,
+        boolean activo
+) {
+
+    // Convierte la entidad (lo que hay en la BD) en lo que la API devuelve
+    public static EmpleadoResponse desde(Empleado e) {
+        return new EmpleadoResponse(e.getId(), e.getNombre(), e.getApellidos(), e.getEmail(),
+                e.getPuesto(), e.getDepartamento(), e.getSalario(), e.getFechaIngreso(), e.isActivo());
+    }
+}

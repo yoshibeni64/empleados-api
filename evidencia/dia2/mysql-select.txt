@@ -1,0 +1,2 @@
+id	nombre	email	puesto	salario	fecha_ingreso
+2	Luis	luis.martinez@empresa.com	Líder de Datos	32000.00	2023-08-01
