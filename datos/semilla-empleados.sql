@@ -1,0 +1,35 @@
+-- 30 empleados de ejemplo para practicar búsquedas y paginación (Día 3).
+-- Se carga con:  docker exec -i empleados-mysql mysql --default-character-set=utf8mb4 -uacademia -pacademia123 empleados_db < datos/semilla-empleados.sql
+-- Los emails son @academia.mx: no chocan con los que creaste en los días anteriores.
+SET NAMES utf8mb4;
+INSERT INTO empleados (nombre, apellidos, email, puesto, departamento, salario, fecha_ingreso, activo) VALUES
+('Mariana', 'Sánchez Ortega',   'mariana.sanchez@academia.mx',  'Desarrolladora Backend',  'Tecnología',        42000.00, '2021-02-15', 1),
+('Jorge',   'Ramírez Luna',     'jorge.ramirez@academia.mx',    'Desarrollador Frontend',  'Tecnología',        38500.00, '2022-06-01', 1),
+('Sofía',   'Hernández Cruz',   'sofia.hernandez@academia.mx',  'Arquitecta de Software',  'Tecnología',        65000.00, '2018-09-10', 1),
+('Diego',   'Morales Vega',     'diego.morales@academia.mx',    'QA Tester',               'Tecnología',        29000.00, '2023-01-16', 1),
+('Valeria', 'Torres Ríos',      'valeria.torres@academia.mx',   'DevOps',                  'Tecnología',        51000.00, '2020-11-03', 1),
+('Andrés',  'Flores Méndez',    'andres.flores@academia.mx',    'Soporte Técnico',         'Tecnología',        18500.00, '2024-04-22', 0),
+('Camila',  'Gómez Reyes',      'camila.gomez@academia.mx',     'Contadora',               'Finanzas',          36000.00, '2019-03-11', 1),
+('Ricardo', 'Díaz Navarro',     'ricardo.diaz@academia.mx',     'Analista Financiero',     'Finanzas',          33000.00, '2021-08-30', 1),
+('Fernanda','Castillo Paredes', 'fernanda.castillo@academia.mx','Gerente de Finanzas',     'Finanzas',          72000.00, '2016-05-02', 1),
+('Luis',    'Jiménez Salas',    'luis.jimenez@academia.mx',     'Auxiliar Contable',       'Finanzas',          16000.00, '2024-07-08', 1),
+('Paola',   'Ruiz Delgado',     'paola.ruiz@academia.mx',       'Tesorera',                'Finanzas',          45000.00, '2020-01-20', 0),
+('Héctor',  'Vargas Peña',      'hector.vargas@academia.mx',    'Reclutador',              'Recursos Humanos',  24000.00, '2022-10-17', 1),
+('Daniela', 'Mendoza Soto',     'daniela.mendoza@academia.mx',  'Gerente de RH',           'Recursos Humanos',  58000.00, '2017-04-24', 1),
+('Iván',    'Aguilar Ponce',    'ivan.aguilar@academia.mx',     'Analista de Nómina',      'Recursos Humanos',  27500.00, '2021-12-06', 1),
+('Lucía',   'Herrera Campos',   'lucia.herrera@academia.mx',    'Capacitación',            'Recursos Humanos',  23000.00, '2023-05-15', 0),
+('Emilio',  'Ortiz Guzmán',     'emilio.ortiz@academia.mx',     'Ejecutivo de Ventas',     'Ventas',            21000.00, '2023-03-01', 1),
+('Regina',  'Silva Fuentes',    'regina.silva@academia.mx',     'Ejecutiva de Ventas',     'Ventas',            21500.00, '2022-09-12', 1),
+('Tomás',   'Medina Rojas',     'tomas.medina@academia.mx',     'Gerente Comercial',       'Ventas',            61000.00, '2018-02-26', 1),
+('Natalia', 'Cabrera León',     'natalia.cabrera@academia.mx',  'Key Account Manager',     'Ventas',            47000.00, '2020-06-15', 1),
+('Óscar',   'Rosales Ibarra',   'oscar.rosales@academia.mx',    'Ejecutivo de Ventas',     'Ventas',            19500.00, '2024-01-29', 0),
+('Andrea',  'Núñez Figueroa',   'andrea.nunez@academia.mx',     'Marketing Digital',       'Ventas',            30500.00, '2021-04-05', 1),
+('Pablo',   'Estrada Molina',   'pablo.estrada@academia.mx',    'Jefe de Almacén',         'Operaciones',       34000.00, '2019-10-14', 1),
+('Ximena',  'Domínguez Lara',   'ximena.dominguez@academia.mx', 'Coordinadora de Logística','Operaciones',      39000.00, '2020-08-24', 1),
+('Rodrigo', 'Vázquez Acosta',   'rodrigo.vazquez@academia.mx',  'Operador',                'Operaciones',       15500.00, '2023-11-13', 1),
+('Alejandra','Ramos Serrano',   'alejandra.ramos@academia.mx',  'Compras',                 'Operaciones',       28000.00, '2022-02-07', 1),
+('Sebastián','Peña Carrillo',   'sebastian.pena@academia.mx',   'Gerente de Operaciones',  'Operaciones',       63000.00, '2017-07-17', 1),
+('Renata',  'Guerrero Bravo',   'renata.guerrero@academia.mx',  'Operadora',               'Operaciones',       15800.00, '2024-03-18', 0),
+('Gabriel', 'Luna Espinoza',    'gabriel.luna@academia.mx',     'Director General',        'Dirección',         95000.00, '2015-01-12', 1),
+('Mónica',  'Rivas Cortés',     'monica.rivas@academia.mx',     'Asistente de Dirección',  'Dirección',         26000.00, '2021-06-21', 1),
+('Arturo',  'Chávez Miranda',   'arturo.chavez@academia.mx',    'Abogado Corporativo',     'Dirección',         55000.00, '2019-05-27', 1);

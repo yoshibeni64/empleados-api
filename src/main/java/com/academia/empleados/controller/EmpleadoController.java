@@ -2,6 +2,7 @@ package com.academia.empleados.controller;
 
 import com.academia.empleados.dto.EmpleadoRequest;
 import com.academia.empleados.dto.EmpleadoResponse;
+import com.academia.empleados.dto.PaginaResponse;
 import com.academia.empleados.service.EmpleadoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -9,6 +10,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +23,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 
@@ -38,9 +44,40 @@ public class EmpleadoController {
     }
 
     @GetMapping
-    @Operation(summary = "Listar todos los empleados")
-    public List<EmpleadoResponse> listar() {
-        return service.listar();
+    @Operation(summary = "Listar empleados, por páginas",
+            description = "page empieza en 0. sort: campo,dirección — ej. salario,desc o apellidos,asc")
+    public PaginaResponse<EmpleadoResponse> listar(
+            @ParameterObject @PageableDefault(size = 10, sort = "id") Pageable pageable) {
+        return service.listar(pageable);
+    }
+
+    @GetMapping("/buscar")
+    @Operation(summary = "Buscar con filtros opcionales, por páginas",
+            description = "Todos los filtros son opcionales y se combinan (Y). texto busca en nombre y apellidos")
+    @ApiResponse(responseCode = "200", description = "Página de resultados (puede venir vacía)")
+    @ApiResponse(responseCode = "400", description = "Parámetro inválido (ej. ordenar por un campo que no existe)",
+            content = @Content(schema = @Schema(implementation = ProblemDetail.class)))
+    public PaginaResponse<EmpleadoResponse> buscar(
+            @RequestParam(required = false) String departamento,
+            @RequestParam(required = false) String texto,
+            @RequestParam(required = false) Boolean activo,
+            @RequestParam(required = false) BigDecimal salarioMinimo,
+            @RequestParam(required = false) BigDecimal salarioMaximo,
+            @ParameterObject @PageableDefault(size = 10, sort = "id") Pageable pageable) {
+        return service.buscar(departamento, texto, activo, salarioMinimo, salarioMaximo, pageable);
+    }
+
+    @GetMapping("/departamento/{departamento}")
+    @Operation(summary = "Empleados de un departamento, ordenados por apellidos")
+    public List<EmpleadoResponse> porDepartamento(@PathVariable String departamento) {
+        return service.porDepartamento(departamento);
+    }
+
+    @GetMapping("/salarios")
+    @Operation(summary = "Empleados con salario entre minimo y maximo, del mayor al menor")
+    public List<EmpleadoResponse> porRangoDeSalario(@RequestParam BigDecimal minimo,
+                                                    @RequestParam BigDecimal maximo) {
+        return service.porRangoDeSalario(minimo, maximo);
     }
 
     @GetMapping("/{id}")
